@@ -85,13 +85,14 @@ var lodash_1 = __webpack_require__(4);
 var _ = new lodash_1.lodash();
 var MainController = (function () {
     function MainController() {
-        this.x = _.countBy([4, 5, 3], Math.floor);
-        this.call();
+        this.x = _.countBy([4.2, 5.4, 3], Math.floor);
+        _.each({ 1: 4, 5: 3 }, function (value, key, collection) {
+            console.log(value);
+            console.log(key);
+            console.log(collection);
+        });
     }
     ;
-    MainController.prototype.call = function () {
-        console.log(this.x);
-    };
     return MainController;
 }());
 exports.MainController = MainController;
@@ -33512,6 +33513,11 @@ var lodash = (function () {
                     result[item] = 1;
             }
             return result;
+        };
+        this.each = function (collection, func) {
+            for (var item in collection) {
+                func(collection[item], item, collection);
+            }
         };
     }
     return lodash;

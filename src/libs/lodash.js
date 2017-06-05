@@ -14,6 +14,11 @@ var lodash = (function () {
             }
             return result;
         };
+        this.each = function (collection, func) {
+            for (var item in collection) {
+                func(collection[item], item, collection);
+            }
+        };
     }
     return lodash;
 }());

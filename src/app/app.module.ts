@@ -9,6 +9,7 @@
 // window.MyNamespace = window.MyNamespace || {};
 
 var angular = require('angular');
+
 import { MainController } from './main.controller'
 
 angular.module('app',[])

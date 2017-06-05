@@ -1,14 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Low Dash</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="assets/css/style.css" rel="stylesheet">
-    </head>
-    <body ng-app="app" ng-controller="mainController as main">
-        {{main.name}}
-        {{main.x}}
-        <script src="../dist/bundle.js"></script>
-    </body>
+
+<head>
+    <title>Low Dash</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="../dist/assets/css/style.min.css" rel="stylesheet">
+    <link href="../dist/assets/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body ng-app="app" ng-controller="mainController as main">
+    <div class="container">
+        <nav class="navbar  navbar-fixed-top" id="sidebar" role="navigation">
+            <ul class="nav sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="#">
+                       Brand
+                    </a>
+                </li>
+                <li>
+                    <a href="#">Home</a>
+                </li>
+                
+            </ul>
+        </nav>
+    </div>
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../dist/bundle.js"></script>
+
+</body>
+
 </html>

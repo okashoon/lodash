@@ -1,17 +1,18 @@
 
     var gulp = require('gulp');
-    var sass = require('gulp-sass');
     var tsc = require('gulp-typescript');
     var webpack = require('webpack');
     var path = require ('path');
-    var sass = require('gulp-sass');
+    var minifyCss = require('gulp-minify-css');
+    var concat = require('gulp-concat');
+
     
     
 
-    gulp.task('sass', function(){
-        gulp.src('./src/assets/sass/*.scss')
-        .pipe(sass())
-        .pipe(gulp.dest('./src/assets/css'))
+    gulp.task('css', function(){
+        gulp.src('./src/assets/css/*.css')
+        .pipe(minifyCss())
+        .pipe(concat('style.min.css'))
         //another copy in dist
         .pipe(gulp.dest('./dist/assets/css'))
     })
@@ -35,5 +36,5 @@
 
     gulp.task('watch', function(){
         gulp.watch('./src/**/*.ts', ['webpack','tsc']);
-        gulp.watch('./src/**/*.scss', ['sass','webpack']);
+        gulp.watch('./src/**/*.css', ['css']);
     })

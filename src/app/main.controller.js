@@ -5,12 +5,13 @@ var _ = new lodash_1.lodash();
 var MainController = (function () {
     function MainController() {
         this.x = _.countBy([4.2, 5.4, 3], Math.floor);
-        this.call();
+        _.each({ 1: 4, 5: 3 }, function (value, key, collection) {
+            console.log(value);
+            console.log(key);
+            console.log(collection);
+        });
     }
     ;
-    MainController.prototype.call = function () {
-        console.log(this.x);
-    };
     return MainController;
 }());
 exports.MainController = MainController;

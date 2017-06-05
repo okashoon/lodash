@@ -11,5 +11,14 @@
             }
             return result;
         }
+
+        public each = function (collection: Array<any> | object,
+            func: (value: string | number, key?: string | number, collection?: Array<any> | object) => void): void {
+                for(let item in collection){
+                    func(collection[item], item, collection);
+                }
+        }
+
+        
     }
 
