@@ -7,9 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="../dist/assets/css/style.min.css" rel="stylesheet">
     <link href="../dist/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../dist/assets/css/css/font-awesome.min.css" rel="stylesheet">
 </head>
 
-<body ng-app="app" ng-controller="mainController as main">
+<body ng-app="app" ng-controller="mainController as vm">
     <div class="container">
         <nav class="navbar  navbar-fixed-top" id="sidebar" role="navigation">
             <ul class="nav sidebar-nav">
@@ -21,9 +22,29 @@
                 <li>
                     <a href="#">Home</a>
                 </li>
-                
+
             </ul>
         </nav>
+        <div id="main-content" class="container">
+            <div class="row">
+                <div class="col-md-3">
+
+                    <input ng-repeat="input in vm.inputs track by $index" class="form-control" ng-model="input.value" type="text">
+                    <button class="btn btn-primary" id="increment-button" ng-click="vm.incrementInputs()">+</button>
+
+                </div>
+                <div class="col-md-3">
+
+                    <img src="../dist/assets/images/right-arrow.png" width="150" height="150">
+
+                </div>
+                <div class="col-md-3">
+                    <textarea readonly ng-model="">
+
+                    </textarea>
+                </div>
+            </div>
+        </div>
     </div>
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
