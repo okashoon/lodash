@@ -1,9 +1,9 @@
 #main-content {
     margin-top: 150px;
-    margin-left: 150px;
+    margin-left: 50px;
 }
 
-#main-content .form-control {
+#main-content .collection-input {
     margin-bottom: 20px;
     width: 100px;
 }
@@ -13,5 +13,16 @@
 }
 
 img {
-    margin: 50px;
+    margin: 80px;
+}
+
+#result-text {
+    height: 300px;
+    width: 300px;
+    margin-left: 50px;
+}
+
+#sidebar {
+    margin: 50px 20px;
+    width: 100px;
 }

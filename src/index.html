@@ -15,33 +15,37 @@
         <nav class="navbar  navbar-fixed-top" id="sidebar" role="navigation">
             <ul class="nav sidebar-nav">
                 <li class="sidebar-brand">
-                    <a href="#">
-                       Brand
-                    </a>
+                    <h4>Method</h4>
                 </li>
-                <li>
-                    <a href="#">Home</a>
+                <li ng-repeat="(methodName, method) in vm.lodashMethods">
+                    <a ng-click="vm.changeLodashMethod(method)">{{methodName}}</a>
                 </li>
 
             </ul>
         </nav>
         <div id="main-content" class="container">
             <div class="row">
-                <div class="col-md-3">
+                <textarea ng-model="vm.selectedLodashDescription"></textarea>
+            </div>
 
-                    <input ng-repeat="input in vm.inputs track by $index" class="form-control" ng-model="input.value" type="text">
+            <div class="row">
+                <div class="col-md-2">
+
+                    <input ng-repeat="input in vm.inputs track by $index" class="form-control collection-input" ng-model="input.value" type="text">
                     <button class="btn btn-primary" id="increment-button" ng-click="vm.incrementInputs()">+</button>
 
                 </div>
                 <div class="col-md-3">
+                    <textarea class="form-control" id="iteratee-text" ng-model="vm.iterateeString"></textarea>
+                </div>
 
-                    <img src="../dist/assets/images/right-arrow.png" width="150" height="150">
+                <div class="col-md-3">
+
+                    <img src="../dist/assets/images/right-arrow.png" width="150" height="150" ng-click="vm.calculateResults()">
 
                 </div>
                 <div class="col-md-3">
-                    <textarea readonly ng-model="">
-
-                    </textarea>
+                    <textarea readonly ng-model="vm.resultString" class="form-control" id="result-text"></textarea>
                 </div>
             </div>
         </div>
