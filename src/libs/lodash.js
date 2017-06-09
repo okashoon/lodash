@@ -8,7 +8,7 @@ var lodash = (function () {
                 " running each element of collection thru iteratee." +
                 " The corresponding value of each key is the number of times the key was returned by iteratee. " +
                 "The iteratee is invoked with one argument: (value).";
-            //if the function is invoked without arguments, set the method description to the function's description
+            //if the function is invoked without arguments, set the method description to this function's description
             if (collection == undefined) {
                 this.methodDescription = description;
                 return;
@@ -29,6 +29,14 @@ var lodash = (function () {
             for (var item in collection) {
                 func(collection[item], item, collection);
             }
+        };
+        this.every = function (collection, func) {
+            for (var item in collection) {
+                if (!func(collection[item], item, collection))
+                    return false;
+                //todo other shorthands
+            }
+            return true;
         };
     }
     return lodash;

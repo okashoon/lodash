@@ -18,7 +18,7 @@ gulp.task('css', function() {
 
 gulp.task('tsc', function() {
     return gulp.src('./src/**/*.ts')
-        .pipe(tsc())
+        .pipe(tsc({ allowJs: true }))
         .pipe(gulp.dest('./src'));
 })
 

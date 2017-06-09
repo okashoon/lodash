@@ -9,8 +9,10 @@
   "author": "Ahmed Okasha",
   "license": "ISC",
   "dependencies": {
+    "@types/highcharts": "^4.2.56",
     "angular": "^1.6.4",
     "bootstrap": "^3.3.7",
+    "highcharts": "^5.0.12",
     "jquery": "^3.2.1",
     "typescript": "^2.3.4"
   },

@@ -25,7 +25,9 @@
         </nav>
         <div id="main-content" class="container">
             <div class="row">
-                <textarea ng-model="vm.selectedLodashDescription"></textarea>
+                <div class="col-md-10 col-md-offset-1">
+                    <p ng-bind="vm.selectedLodashDescription" id="description-text"></p>
+                </div>
             </div>
 
             <div class="row">
@@ -48,11 +50,37 @@
                     <textarea readonly ng-model="vm.resultString" class="form-control" id="result-text"></textarea>
                 </div>
             </div>
+            <div class="row">
+                <div id="column-chart-container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+            </div>
+            <div id="tick-container">
+                <div ng-class="{ 'drawn' : vm.tick, 'trigger': !vm.tick}"></div>
+                <svg version="1.1" id="tick" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 37 37" style="enable-background:new 0 0 37 37;" xml:space="preserve">
+                    <path class="circ path" style="fill:none;stroke:#000;stroke-width:3;stroke-linejoin:round;stroke-miterlimit:10;" d="
+                        M30.5,6.5L30.5,6.5c6.6,6.6,6.6,17.4,0,24l0,0c-6.6,6.6-17.4,6.6-24,0l0,0c-6.6-6.6-6.6-17.4,0-24l0,0C13.1-0.2,23.9-0.2,30.5,6.5z"
+                        />
+                    <polyline class="tick path" style="fill:none;stroke:#000;stroke-width:3;stroke-linejoin:round;stroke-miterlimit:10;" points="
+                        11.6,20 15.9,24.2 26.4,13.8 "/>
+                </svg>
+
+
+
+            </div>
+            <div id="x-container">
+                <svg>
+                    
+                    <line x1="200" y1="5" x2="5" y2="200" stroke="#34495e" stroke-width="10" /></line>
+                    <line x1="200" y1="200" x2="5" y2="5" stroke="#34495e" stroke-width="10" /></line>
+                </svg>
+            </div>
+            <button ng-click="vm.changeTick()">go/reset</button>
         </div>
     </div>
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="../dist/bundle.js"></script>
+
+
 
 </body>
 

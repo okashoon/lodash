@@ -3,7 +3,6 @@
 /// <reference path="../../node_modules/@types/jquery/index.d.ts"/>
 /// <reference path="../../node_modules/@types/node/index.d.ts"/>
 
-
 // interface Window { MyNamespace: any; }
 
 // window.MyNamespace = window.MyNamespace || {};
