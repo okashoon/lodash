@@ -20,6 +20,7 @@
     "@types/angular": "^1.6.18",
     "@types/jquery": "^2.0.46",
     "@types/node": "^7.0.27",
+    "browserify": "^14.4.0",
     "commonjs": "0.0.1",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.1",
@@ -27,8 +28,17 @@
     "gulp-minify-css": "^1.2.4",
     "gulp-sass": "^3.1.0",
     "gulp-typescript": "^3.1.7",
+    "jasmine": "^2.6.0",
     "karma": "^1.7.0",
+    "karma-browserify": "^5.1.1",
+    "karma-chrome-launcher": "^2.1.1",
+    "karma-commonjs": "^1.0.0",
+    "karma-coverage": "^1.1.1",
+    "karma-jasmine": "^1.1.0",
+    "require": "^2.4.20",
+    "requirejs": "^2.3.3",
     "tsd": "^0.6.5",
+    "watchify": "^3.9.0",
     "webpack": "^2.6.1"
   }
 }

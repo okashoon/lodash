@@ -43,12 +43,12 @@
                                     <button ng-class="{'btn-primary':vm.inputType=='array'}" ng-click="vm.inputType='array'" class="btn btn-default">Array</button>
                                     <button ng-class="{'btn-danger':vm.inputType=='object'}" ng-click="vm.inputType='object'" class="btn btn-default">Object</button>
                                 </div>
-                                <div ng-show="vm.inputType=='array'">
-                                    <input ng-repeat="input in vm.inputs track by $index" class="form-control array-input" ng-model="input.value" type="text">
+                                <div ng-show="vm.inputType=='array'" ng-repeat="input in vm.inputs track by $index">
+                                    <input class="form-control array-input" ng-model="input.value" type="text">
                                 </div>
-                                <div ng-show="vm.inputType=='object'">
-                                    <input ng-repeat="input in vm.inputs track by $index" class="form-control collection-input" ng-model="input.key" type="text">
-                                    <input ng-repeat="input in vm.inputs track by $index" class="form-control collection-input" ng-model="input.value" type="text">
+                                <div ng-show="vm.inputType=='object'" ng-repeat="input in vm.inputs track by $index">
+                                    <input class="form-control collection-input" ng-model="input.key" type="text">
+                                    <input class="form-control collection-input" ng-model="input.value" type="text">
                                 </div>
                                 <button class="btn btn-primary" id="increment-button" ng-click="vm.incrementInputs()">+</button>
 

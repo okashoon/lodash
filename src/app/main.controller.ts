@@ -97,6 +97,7 @@ export class MainController {
         this.iterateeMethod = fn;
         return true;
     }
+    
 
     createCollection() {
         let collection = [];
