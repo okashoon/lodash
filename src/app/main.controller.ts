@@ -6,11 +6,17 @@ import * as Highcharts from "../../node_modules/highcharts/highcharts";
 let _ = new lodash();
 
 class Input {
-    value: string | number
+    key: string | number;
+    value: string | number;
+}
+class Lodash{
+    name: string;
+    description: string;
+    method: any;
 }
 
 export class MainController {
-    constructor() {
+    constructor(private $timeout) {
         //loop through all lodash methods and store in an object
         for (let func in _) {
             this.lodashMethods[func] = _[func];
@@ -21,13 +27,15 @@ export class MainController {
     public resultObject: any;
     //string binded to result <textare>
     public resultString: string = "";
-    public selectedLodashMethod;
-    public selectedLodashDescription = "";
+    public selectedLodash = new Lodash();
     public iterateeString = "";
     public iterateeMethod;
     //object that contains all lodash methods, methods are pushed in it in constructor
     public lodashMethods: object = {};
     public tick = false;
+    public resultView = "";
+    public inputType = 'array';
+    
 
     //adds new input element in view
     incrementInputs() {
@@ -38,20 +46,29 @@ export class MainController {
         //calculate only if iteratee method is complete
         if (this.createIterateeMethod()) {
             this.resultString = "";
-            let tempCollection = [];
-            for (let item of this.inputs) {
-                tempCollection.push(item.value);
-            }
+             let collection = this.createCollection();
+            
             try {
-                this.resultObject = this.selectedLodashMethod(tempCollection, this.iterateeMethod);
+                //to catch any errors in the iteratee method
+                this.resultObject = this.selectedLodash.method(collection, this.iterateeMethod);
                 console.log(typeof this.resultObject);
                 if (typeof this.resultObject === 'object') {
+                    console.log("object")
                     for (let entry in this.resultObject) {
                         this.resultString += "\"" + entry + "\"" + " : " + this.resultObject[entry] + '\n';
                     } 
+                    //open the charts view
+                    this.drawResultView('chart');
                 } else if(typeof this.resultObject === 'boolean'){
-                    this.resultObject? this.resultString = "true" : this.resultString = "false";
-                }
+                    console.log("boolean")
+                    if(this.resultObject){
+                        this.resultString = "true";
+                         this.drawResultView('tick');
+                        } else {
+                          this.resultString = "false";
+                          this.drawResultView('x');
+                        }
+                } 
                 console.log(this.resultObject);
 
             } catch (e) {
@@ -60,11 +77,13 @@ export class MainController {
             this.drawChart();
         }
     }
-    changeLodashMethod(func) {
-        this.selectedLodashMethod = func;
+    changeLodash(name, func) {
+        this.selectedLodash.method = func;
+        this.selectedLodash.name = name;
+        
         //call the selected function without arguments to set the methodDescription text to the selected method
         func.call(_);
-        this.selectedLodashDescription = _.methodDescription;
+        this.selectedLodash.description = _.methodDescription;
     }
     createIterateeMethod() {
         let fn = new Function();
@@ -79,13 +98,24 @@ export class MainController {
         return true;
     }
 
-    iterateeErrorMessage() {
-        console.log("complete your function")
+    createCollection() {
+        let collection = [];
+        for (let item of this.inputs) {
+            collection.push(item.value);
+        }
+        return collection;
     }
 
-    disableCalculation() {
+    drawResultView(type: string){
+        
+        this.tick = false;
+        this.resultView = type;
+        //timeout for animation
+        this.$timeout(()=>{this.tick = true;},10)
 
     }
+
+    
     drawChart() {
         let categories = [];
         let data = [];
@@ -129,14 +159,7 @@ export class MainController {
         });
     }
 
-    changeTick(){
-        if(this.tick == false){
-            this.tick = true;
-        } else {
-            this.tick = false;
-        }
-        console.log(this.tick)
-    }
+    
 
 }
 

@@ -5,80 +5,112 @@
     <title>Low Dash</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="../dist/assets/css/style.min.css" rel="stylesheet">
     <link href="../dist/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../dist/assets/css/style.min.css" rel="stylesheet">
+
     <link href="../dist/assets/css/css/font-awesome.min.css" rel="stylesheet">
 </head>
 
 <body ng-app="app" ng-controller="mainController as vm">
-    <div class="container">
-        <nav class="navbar  navbar-fixed-top" id="sidebar" role="navigation">
-            <ul class="nav sidebar-nav">
-                <li class="sidebar-brand">
-                    <h4>Method</h4>
-                </li>
-                <li ng-repeat="(methodName, method) in vm.lodashMethods">
-                    <a ng-click="vm.changeLodashMethod(method)">{{methodName}}</a>
-                </li>
+    <div class="container-fluid" id="background">
+        <div class="page-header">
+            <h1>_Lodash </h1>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <nav class="navbar  navbar-fixed-top navbar-default " id="sidebar" role="navigation">
 
-            </ul>
-        </nav>
-        <div id="main-content" class="container">
-            <div class="row">
-                <div class="col-md-10 col-md-offset-1">
-                    <p ng-bind="vm.selectedLodashDescription" id="description-text"></p>
+                    <h3>Functions</h3>
+
+                    <ul class="nav nav-pills nav-stacked">
+
+                        <li ng-repeat="(methodName, method) in vm.lodashMethods" ng-show="methodName != 'methodDescription'">
+                            <a ng-class="{'active':methodName == vm.selectedLodash.name}" ng-click="vm.changeLodash(methodName,method)">{{methodName}}</a>
+                        </li>
+
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-md-10">
+                <div id="main-content" class="container">
+                    <div id="inputs-container">
+
+
+                        <div class="row">
+                            <div class="col-md-3" id="inputs">
+                                <p>Enter here your collection</p>
+                                <div class="btn-group" role="group" id="select-input">
+                                    <button ng-class="{'btn-primary':vm.inputType=='array'}" ng-click="vm.inputType='array'" class="btn btn-default">Array</button>
+                                    <button ng-class="{'btn-danger':vm.inputType=='object'}" ng-click="vm.inputType='object'" class="btn btn-default">Object</button>
+                                </div>
+                                <div ng-show="vm.inputType=='array'">
+                                    <input ng-repeat="input in vm.inputs track by $index" class="form-control array-input" ng-model="input.value" type="text">
+                                </div>
+                                <div ng-show="vm.inputType=='object'">
+                                    <input ng-repeat="input in vm.inputs track by $index" class="form-control collection-input" ng-model="input.key" type="text">
+                                    <input ng-repeat="input in vm.inputs track by $index" class="form-control collection-input" ng-model="input.value" type="text">
+                                </div>
+                                <button class="btn btn-primary" id="increment-button" ng-click="vm.incrementInputs()">+</button>
+
+                            </div>
+                            <div class="col-md-9">
+                                <div class="row">
+                                    <div class="col-md-10 col-md-offset-1">
+                                        <p ng-bind="vm.selectedLodash.description" id="description-text"></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4" id="iteratee-container">
+                                        <p>Enter here your iteratee function</p>
+                                        <textarea class="form-control" id="iteratee-text" ng-model="vm.iterateeString"></textarea>
+                                    </div>
+
+                                    <div class="col-md-3">
+
+                                        <img src="../dist/assets/images/right-arrow.png" width="150" height="150" ng-click="vm.calculateResults()">
+
+                                    </div>
+                                    <div class="col-md-5" id="result-container">
+                                        <p>Your result will appear here</p>
+                                        <textarea readonly ng-model="vm.resultString" class="form-control" id="result-text"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="results-animation-container">
+                        <div id="no-results" ng-show="vm.resultView==''">Results will appear here</div>
+
+                        <div id="column-chart-container" ng-show="vm.resultView=='chart'" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+                        <div id="tick-container" ng-show="vm.resultView=='tick'">
+                            <div ng-class="{ 'drawn' : vm.tick, 'trigger': !vm.tick}"></div>
+                            <svg version="1.1" id="tick" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 37 37" style="enable-background:new 0 0 37 37;" xml:space="preserve">
+                                <path class="circ path" style="fill:none;stroke:#000;stroke-width:3;stroke-linejoin:round;stroke-miterlimit:10;" d="
+                                    M30.5,6.5L30.5,6.5c6.6,6.6,6.6,17.4,0,24l0,0c-6.6,6.6-17.4,6.6-24,0l0,0c-6.6-6.6-6.6-17.4,0-24l0,0C13.1-0.2,23.9-0.2,30.5,6.5z"
+                                    />
+                                <polyline class="tick path" style="fill:none;stroke:#000;stroke-width:3;stroke-linejoin:round;stroke-miterlimit:10;" points="
+                                    11.6,20 15.9,24.2 26.4,13.8 "/>
+                            </svg>
+                        </div>
+
+                        <div id="x-container" ng-show="vm.resultView=='x'">
+                            <div ng-class="{ 'drawn' : vm.tick, 'trigger': !vm.tick}"></div>
+                            <svg width="320" height="320" id='x'>
+                                <circle  cx="160" cy="160" r="150" fill="none" stroke="black" stroke-width="20"/>
+                                <line class="line" x1=" 250 " y1="70 " x2="70 " y2="250" stroke="black " stroke-width="20" /></line>
+                                <line class="line" x1="250" y1="250" x2="70" y2="70" stroke="black " stroke-width="20" /></line>
+                            </svg>
+                        </div>
+
+                    </div>
                 </div>
             </div>
-
-            <div class="row">
-                <div class="col-md-2">
-
-                    <input ng-repeat="input in vm.inputs track by $index" class="form-control collection-input" ng-model="input.value" type="text">
-                    <button class="btn btn-primary" id="increment-button" ng-click="vm.incrementInputs()">+</button>
-
-                </div>
-                <div class="col-md-3">
-                    <textarea class="form-control" id="iteratee-text" ng-model="vm.iterateeString"></textarea>
-                </div>
-
-                <div class="col-md-3">
-
-                    <img src="../dist/assets/images/right-arrow.png" width="150" height="150" ng-click="vm.calculateResults()">
-
-                </div>
-                <div class="col-md-3">
-                    <textarea readonly ng-model="vm.resultString" class="form-control" id="result-text"></textarea>
-                </div>
-            </div>
-            <div class="row">
-                <div id="column-chart-container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-            </div>
-            <div id="tick-container">
-                <div ng-class="{ 'drawn' : vm.tick, 'trigger': !vm.tick}"></div>
-                <svg version="1.1" id="tick" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 37 37" style="enable-background:new 0 0 37 37;" xml:space="preserve">
-                    <path class="circ path" style="fill:none;stroke:#000;stroke-width:3;stroke-linejoin:round;stroke-miterlimit:10;" d="
-                        M30.5,6.5L30.5,6.5c6.6,6.6,6.6,17.4,0,24l0,0c-6.6,6.6-17.4,6.6-24,0l0,0c-6.6-6.6-6.6-17.4,0-24l0,0C13.1-0.2,23.9-0.2,30.5,6.5z"
-                        />
-                    <polyline class="tick path" style="fill:none;stroke:#000;stroke-width:3;stroke-linejoin:round;stroke-miterlimit:10;" points="
-                        11.6,20 15.9,24.2 26.4,13.8 "/>
-                </svg>
-
-
-
-            </div>
-            <div id="x-container">
-                <svg>
-                    
-                    <line x1="200" y1="5" x2="5" y2="200" stroke="#34495e" stroke-width="10" /></line>
-                    <line x1="200" y1="200" x2="5" y2="5" stroke="#34495e" stroke-width="10" /></line>
-                </svg>
-            </div>
-            <button ng-click="vm.changeTick()">go/reset</button>
         </div>
     </div>
-    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="../dist/bundle.js"></script>
+    <script src="../node_modules/jquery/dist/jquery.min.js "></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js "></script>
+    <script src="../dist/bundle.js "></script>
 
 
 
